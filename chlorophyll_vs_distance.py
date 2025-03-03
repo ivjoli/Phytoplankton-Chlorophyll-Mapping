@@ -43,14 +43,17 @@ def calc_distance(data):
     for point in valid_points: # for each point in the list of valid points
         dist, idx = tree.query([point.x, point.y]) # find the distance and index of the closest point in the coastline
         distances.append(dist) # add the distance to the list
+    return distances, valid_chlorophyll
 
-    plt.figure(figsize=(10, 6))
-    plt.scatter(distances, valid_chlorophyll, s=5, alpha=0.7, c=distances, cmap='viridis')
-    plt.xlabel("Distance to Coastline (degrees)")
-    plt.ylabel("Chlorophyll Concentration")
-    plt.title("Distance to Coastline vs Chlorophyll Concentration")
-    plt.show()
-
-def log(distances, valid_chlorophyll):
+def log(data):
+    calc_distance(data)
     # plot the data in log-log scale
     plt.loglog(distances, valid_chlorophyll, 'go', markersize=1)
+
+def plot_distances(distances, chl, xlab = "", ylab = "", title = ""):
+    plt.figure(figsize=(10, 6))
+    plt.scatter(distances, chl, s=5, alpha=0.7, c=distances, cmap='viridis')
+    plt.xlabel("xlab")
+    plt.ylabel("ylab")
+    plt.title("title")
+    plt.show()
