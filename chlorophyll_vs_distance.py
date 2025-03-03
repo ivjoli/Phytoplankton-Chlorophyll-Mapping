@@ -1,10 +1,3 @@
-# add this to import the necessary libraries
-import geopandas as gpd
-from shapely.geometry import Point, MultiLineString
-from scipy.spatial import cKDTree
-from cartopy.io import shapereader as shpreader
-from shapely.ops import unary_union
-
 # define function for calculating distance between two points
 def calc_distance(data):
     # load the coastline data
