@@ -45,15 +45,19 @@ def calc_distance(data):
         distances.append(dist) # add the distance to the list
     return distances, valid_chlorophyll
 
-def log(data):
-    calc_distance(data)
-    # plot the data in log-log scale
-    plt.loglog(distances, valid_chlorophyll, 'go', markersize=1)
-
 def plot_distances(distances, chl, xlab = "", ylab = "", title = ""):
     plt.figure(figsize=(10, 6))
     plt.scatter(distances, chl, s=5, alpha=0.7, c=distances, cmap='viridis')
-    plt.xlabel("xlab")
-    plt.ylabel("ylab")
-    plt.title("title")
+    plt.xlabel(xlab)
+    plt.ylabel(ylab)
+    plt.title(title)
+    plt.show()
+
+def log_plot(data, xlab = "", ylab="", title=""):
+    calc_distance(data)
+    # plot the data in log-log scale
+    plt.loglog(distances, valid_chlorophyll, 'go', markersize=1)
+    plt.xlabel(xlab)
+    plt.ylabel(ylab)
+    plt.title(title)
     plt.show()
