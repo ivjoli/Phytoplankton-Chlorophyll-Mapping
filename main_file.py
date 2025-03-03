@@ -31,8 +31,16 @@ plot_chlor_a_CA(chlor_a)
 adding_colors(chlor_a)
 
 # caculate the distance
-calc_distance(chlor_a) # all chloraphyll
 # for california ONLY
 subset = chlor_a.sel(lat=slice(50, 10), lon=slice(-180, -110))
-calc_distance(subset) # chloraphyll distance in california
+distances_CA, valid_chlorophyll_CA = calc_distance(subset) # chloraphyll distance in california
+################################################################
+distances, valid_chlorophyll = calc_distance(chlor_a) # all chloraphyll
 
+# plot distances
+plot_distances(distances, valid_chlorophyll, "Distance to Coastline (degrees)", "Chlorophyll Concentration", "Distance to Coastline vs Chlorophyll Concentration, MODIS Jan 2023")
+
+
+# get the log of the data
+log(subset) # log of the data in california
+log(chlor_a) # log of all the data
