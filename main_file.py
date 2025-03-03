@@ -13,6 +13,14 @@ import numpy as np
 # for mapping
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
+import geopandas as gpd
+
+# calculating distances
+from shapely.geometry import Point, MultiLineString
+from scipy.spatial import cKDTree
+from cartopy.io import shapereader as shpreader
+from shapely.ops import unary_union
+
 
 print("please enter the datafile") 
 dataset = input()
@@ -45,3 +53,6 @@ plot_distances(distances, valid_chlorophyll, "Distance to Coastline (degrees)", 
 # get the log of the data
 log_plot(subset, "Distance to coastline", "Chlorophyll Concentration", "Distance to Coastline for California (Log)" ) # log of the data in california
 log_plot(chlor_a, "Distance to coastline", "Chlorophyll Concentration", "Distance to Coastline (Log)") # log of all the data
+
+# converting datapoints (ONLY WORKS FOR DEGREES -> METERS)
+convert_units()
