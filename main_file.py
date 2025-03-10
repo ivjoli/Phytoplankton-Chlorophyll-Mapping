@@ -28,7 +28,8 @@ if dataset == "q": # exit the program
     quit()
 
 # load the dataset
-chlor_a = loading_datasets(dataset)
+chlor_a = loading_datasets(dataset) 
+coastline = loading_coastline()
 
 
 # plotting the data
@@ -41,18 +42,15 @@ adding_colors(chlor_a)
 # caculate the distance
 # for california ONLY
 subset = chlor_a.sel(lat=slice(50, 10), lon=slice(-180, -110))
-distances_CA, valid_chlorophyll_CA = calc_distance(subset) # chloraphyll distance in california
+distances_CA, valid_chlorophyll_CA, valid_points_CA = calc_distance(subset, coastline) # chloraphyll distance in california
 ################################################################
-distances, valid_chlorophyll = calc_distance(chlor_a) # all chloraphyll
+distances, valid_chlorophyll, valid_points = calc_distance(chlor_a, coastline) # all chloraphyll
 
 # plot distances
-plot_distances(distances, valid_chlorophyll, "Distance to Coastline (degrees)", "Chlorophyll Concentration", "Distance to Coastline vs Chlorophyll Concentration, MODIS Jan 2023")
+plot_distances(distances, valid_chlorophyll, "Distance to Coastline (meters)", "Chlorophyll Concentration (mg/m^3)", "Distance to Coastline vs Chlorophyll Concentration, MODIS Jan 2023")
 
 
 # get the log of the data
 # get the log of the data
-log_plot(subset, "Distance to coastline", "Chlorophyll Concentration", "Distance to Coastline for California (Log)" ) # log of the data in california
-log_plot(chlor_a, "Distance to coastline", "Chlorophyll Concentration", "Distance to Coastline (Log)") # log of all the data
-
-# converting datapoints (ONLY WORKS FOR DEGREES -> METERS)
-convert_units()
+log_plot(subset, "Distance to coastline", "Chlorophyll Concentration (mg/m^3)", "Distance to Coastline for California (Log)" ) # log of the data in california
+log_plot(chlor_a, "Distance to coastline", "Chlorophyll Concentration (mg/m^3)", "Distance to Coastline (Log)") # log of all the data
