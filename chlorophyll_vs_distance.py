@@ -1,10 +1,8 @@
-# define function for calculating distance between two points
-def calc_distance(data):
-    # load the coastline data
-    shp_path = shpreader.natural_earth(resolution='110m', category='physical', name='coastline') # load the natural earth data from physical coatsline at reso 110 for fast work
-    coastline_shapes = list(shpreader.Reader(shp_path).geometries()) # read the data as geometries and put it as a list
-    coastline = unary_union(MultiLineString(coastline_shapes)) # combine the geometries into one multilinestring
+# other files in repo
+from converting_units import *  # to load the data
 
+# define function for calculating distance between two points
+def calc_distance(data, coastline_data):
     # get the lat/lon and filtuer out NAN chlorophyll values
     lats, lon = data['lat'].values, data['lon'].values # put the values of lat and lon in variables
     lon_grid, lat_grid = np.meshgrid(lon, lats) # create a meshgrid of the lat and lon
@@ -23,7 +21,7 @@ def calc_distance(data):
         
     # extract coordinates from multilinestring
     coastline_coords_list = []  # a list of coordinates
-    for line in coastline.geoms:    # gets each line in coastline
+    for line in coastline_data.geoms:    # gets each line in coastline
         for coord in line.coords:   # gets each coordinate in line  
             coastline_coords_list.append(coord)     # adds the coordinate to the list
     coastline_coords = np.array(coastline_coords_list) # converts the list to an array
@@ -36,7 +34,12 @@ def calc_distance(data):
     for point in valid_points: # for each point in the list of valid points
         dist, idx = tree.query([point.x, point.y]) # find the distance and index of the closest point in the coastline
         distances.append(dist) # add the distance to the list
-    return distances, valid_chlorophyll
+
+    # convert degrees to meters
+    # Convert distances from degrees to meters
+    distances_meters = degrees_to_meters(distances, valid_points)
+
+    return distances_meters, valid_chlorophyll, valid_points
 
 def plot_distances(distances, chl, xlab = "", ylab = "", title = ""):
     plt.figure(figsize=(10, 6))
