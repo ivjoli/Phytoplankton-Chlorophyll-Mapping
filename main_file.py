@@ -3,6 +3,7 @@
 from loading_data import *  # to load the data
 from simple_plots import *  # to plot simple data
 from chlorophyll_vs_distance import *  # to calculate distance
+from make_jointplot import *  # to make the jointplot
 
 import xarray as xr # for reading and loading dataset
 
@@ -20,6 +21,9 @@ from shapely.geometry import Point, MultiLineString
 from scipy.spatial import cKDTree
 from cartopy.io import shapereader as shpreader
 from shapely.ops import unary_union
+
+# using seaborn
+import seaborn as sns
 
 
 print("please enter the datafile") 
@@ -54,3 +58,14 @@ plot_distances(distances, valid_chlorophyll, "Distance to Coastline (meters)", "
 # get the log of the data
 log_plot(subset, "Distance to coastline", "Chlorophyll Concentration (mg/m^3)", "Distance to Coastline for California (Log)" ) # log of the data in california
 log_plot(chlor_a, "Distance to coastline", "Chlorophyll Concentration (mg/m^3)", "Distance to Coastline (Log)") # log of all the data
+
+#--------------------------------------
+# using seaborn
+# create a new panda dataframe with the distance
+distance_df = pd.DataFrame({
+    'Distance to Coastline (m)': distances > 0, # ensure the distance is greater than 0 for log
+    'Chlorophyll Concentration (mg/m³)': valid_chlorophyll > 0 # ensure the chlorophyll is greater than 0 for log
+}) 
+
+# create a jointplot of distance vs chlorophyll concentration
+make_jointplot(distance_df)
