@@ -56,8 +56,8 @@ plot_distances(distances, valid_chlorophyll, "Distance to Coastline (meters)", "
 
 # get the log of the data
 # get the log of the data
-log_plot(subset, "Distance to coastline", "Chlorophyll Concentration (mg/m^3)", "Distance to Coastline for California (Log)" ) # log of the data in california
-log_plot(chlor_a, "Distance to coastline", "Chlorophyll Concentration (mg/m^3)", "Distance to Coastline (Log)") # log of all the data
+log_plot(subset, coastline. "Distance to coastline", "Chlorophyll Concentration (mg/m^3)", "Distance to Coastline for California (Log)" ) # log of the data in california
+log_plot(chlor_a, coastline, "Distance to coastline", "Chlorophyll Concentration (mg/m^3)", "Distance to Coastline (Log)") # log of all the data
 
 #--------------------------------------
 # using seaborn
