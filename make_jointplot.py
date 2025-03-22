@@ -27,3 +27,5 @@ def make_jointplot(dataframe):
 
     chl_jointplot.set_axis_labels('Log Distance to Coastline (m)', 'Log Chlorophyll Concentration (mg/m³)')
     chl_jointplot.fig.suptitle('Log Distance to Coastline vs. Log Chlorophyll Concentration (california)')
+    colorbar = chl_jointplot.fig.colorbar(chl_jointplot.ax_joint.collections[0], ax=chl_jointplot.ax_joint)
+
