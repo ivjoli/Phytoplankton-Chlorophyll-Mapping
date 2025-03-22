@@ -49,8 +49,8 @@ def plot_distances(distances, chl, xlab = "", ylab = "", title = ""):
     plt.title(title)
     plt.show()
 
-def log_plot(data, xlab = "", ylab="", title=""):
-    calc_distance(data)
+def log_plot(data, coastline_data, xlab = "", ylab="", title=""):
+    calc_distance(data, coastline_data)
     # plot the data in log-log scale
     plt.loglog(distances, valid_chlorophyll, 'go', markersize=1)
     plt.xlabel(xlab)
